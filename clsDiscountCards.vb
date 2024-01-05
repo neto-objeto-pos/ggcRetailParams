@@ -21,7 +21,6 @@
 '      Started creating this object.
 '€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
 
-Imports MySql.Data.MySqlClient
 Imports ggcAppDriver
 
 Public Class clsDiscountCards
@@ -213,16 +212,16 @@ Public Class clsDiscountCards
                 p_oDTMstr(0)("sCardIDxx") = GetNextCode(pxeMasterTble, "sCardIDxx", True, p_oApp.Connection, False)
                 lsSQL = ADO2SQL(p_oDTMstr, pxeMasterTble, , p_oApp.UserID, p_oApp.SysDate)
             Else
-                lsSQL = "UPDATE " & pxeMasterTble & _
-                            " SET  sCardDesc= " & strParm(p_oDTMstr(0)("sCardDesc")) & _
-                                ", sCompnyCd= " & strParm(p_oDTMstr(0)("sCompnyCd")) & _
-                                ", dPrtSince= " & dateParm(p_oDTMstr(0)("dPrtSince")) & _
-                                ", dStartxxx= " & dateParm(p_oDTMstr(0)("dStartxxx")) & _
-                                ", dExpiratn= " & dateParm(p_oDTMstr(0)("dExpiratn")) & _
-                                ", cNoneVatx= " & strParm(p_oDTMstr(0)("cNoneVatx")) & _
-                                ", cRecdStat= " & strParm(p_oDTMstr(0)("cRecdStat")) & _
-                                ", sModified= " & strParm(p_oApp.UserID) & _
-                                ", dModified= " & datetimeParm(p_oApp.SysDate) & _
+                lsSQL = "UPDATE " & pxeMasterTble &
+                            " SET  sCardDesc= " & strParm(p_oDTMstr(0)("sCardDesc")) &
+                                ", sCompnyCd= " & strParm(p_oDTMstr(0)("sCompnyCd")) &
+                                ", dPrtSince= " & dateParm(p_oDTMstr(0)("dPrtSince")) &
+                                ", dStartxxx= " & dateParm(p_oDTMstr(0)("dStartxxx")) &
+                                ", dExpiratn= " & dateParm(p_oDTMstr(0)("dExpiratn")) &
+                                ", cNoneVatx= " & strParm(p_oDTMstr(0)("cNoneVatx")) &
+                                ", cRecdStat= " & strParm(p_oDTMstr(0)("cRecdStat")) &
+                                ", sModified= " & strParm(p_oApp.UserID) &
+                                ", dModified= " & datetimeParm(p_oApp.SysDate) &
                             " WHERE sCardIDxx = " & strParm(p_oDTMstr(0)("sCardIDxx"))
 
                 lsSQL1 = "DELETE FROM " & pxeDetailTble & " WHERE sCardIDxx = " & strParm(p_oDTMstr(0)("sCardIDxx"))
@@ -275,16 +274,16 @@ Public Class clsDiscountCards
                 p_oDTMstr(0)("sCardIDxx") = GetNextCode(pxeMasterTble, "sCardIDxx", True, p_oApp.Connection, False)
                 lsSQL = ADO2SQL(p_oDTMstr, pxeMasterTble, , p_oApp.UserID, p_oApp.SysDate)
             Else
-                lsSQL = "UPDATE " & pxeMasterTble & _
-                            " SET  sCardDesc= " & strParm(p_oDTMstr(0)("sCardDesc")) & _
-                                ", sCompnyCd= " & strParm(p_oDTMstr(0)("sCompnyCd")) & _
-                                ", dPrtSince= " & dateParm(p_oDTMstr(0)("dPrtSince")) & _
-                                ", dStartxxx= " & dateParm(p_oDTMstr(0)("dStartxxx")) & _
-                                ", dExpiratn= " & dateParm(p_oDTMstr(0)("dExpiratn")) & _
-                                ", cNoneVatx= " & strParm(p_oDTMstr(0)("cNoneVatx")) & _
-                                ", cRecdStat= " & strParm(p_oDTMstr(0)("cRecdStat")) & _
-                                ", sModified= " & strParm(p_oApp.UserID) & _
-                                ", dModified= " & datetimeParm(p_oApp.SysDate) & _
+                lsSQL = "UPDATE " & pxeMasterTble &
+                            " SET  sCardDesc= " & strParm(p_oDTMstr(0)("sCardDesc")) &
+                                ", sCompnyCd= " & strParm(p_oDTMstr(0)("sCompnyCd")) &
+                                ", dPrtSince= " & dateParm(p_oDTMstr(0)("dPrtSince")) &
+                                ", dStartxxx= " & dateParm(p_oDTMstr(0)("dStartxxx")) &
+                                ", dExpiratn= " & dateParm(p_oDTMstr(0)("dExpiratn")) &
+                                ", cNoneVatx= " & strParm(p_oDTMstr(0)("cNoneVatx")) &
+                                ", cRecdStat= " & strParm(p_oDTMstr(0)("cRecdStat")) &
+                                ", sModified= " & strParm(p_oApp.UserID) &
+                                ", dModified= " & datetimeParm(p_oApp.SysDate) &
                             " WHERE sCardIDxx = " & strParm(p_oDTMstr(0)("sCardIDxx"))
 
                 lsSQL1 = "DELETE FROM " & pxeDetailTble & " WHERE sCardIDxx = " & strParm(p_oDTMstr(0)("sCardIDxx"))
@@ -325,22 +324,22 @@ Public Class clsDiscountCards
             Case xeSpclDisc.xeUnknown
                 lsSQL = getSQLMaster()
             Case Else
-                lsSQL = "SELECT" & _
-                             "  a.sCardIDxx" & _
-                             ", a.sCardDesc" & _
-                             ", a.sCompnyCd" & _
-                             ", a.dPrtSince" & _
-                             ", a.dStartxxx" & _
-                             ", a.dExpiratn" & _
-                             ", a.cNoneVatx" & _
-                             ", a.cRecdStat" & _
-                             ", a.sModified" & _
-                             ", a.dModified" & _
-                        " FROM " & pxeMasterTble & " a" & _
-                            ", Discount_Card_Detail b" & _
-                        " WHERE a.sCardIDxx = b.sCardIDxx" & _
-                            " AND b.sCategrID" & IIf(fnDiscount = xeSpclDisc.xeSpecial, " = ''", " <> ''") & _
-                        " GROUP BY a.sCardIDxx" & _
+                lsSQL = "SELECT" &
+                             "  a.sCardIDxx" &
+                             ", a.sCardDesc" &
+                             ", a.sCompnyCd" &
+                             ", a.dPrtSince" &
+                             ", a.dStartxxx" &
+                             ", a.dExpiratn" &
+                             ", a.cNoneVatx" &
+                             ", a.cRecdStat" &
+                             ", a.sModified" &
+                             ", a.dModified" &
+                        " FROM " & pxeMasterTble & " a" &
+                            ", Discount_Card_Detail b" &
+                        " WHERE a.sCardIDxx = b.sCardIDxx" &
+                            " AND b.sCategrID" & IIf(fnDiscount = xeSpclDisc.xeSpecial, " = ''", " <> ''") &
+                        " GROUP BY a.sCardIDxx" &
                         " ORDER BY a.sCardIDxx ASC"
         End Select
 
@@ -354,7 +353,7 @@ Public Class clsDiscountCards
                                             , True _
                                             , "" _
                                             , "sCardIDxx»sCardDesc»sCompnyCd" _
-                                            , "ID»Descript»Company", _
+                                            , "ID»Descript»Company",
                                             , "sCardIDxx»sCardDesc»sCompnyCd" _
                                             , 1)
             If IsNothing(loRow) Then
@@ -417,13 +416,13 @@ endwithClear:
         Return InitRecord()
     End Function
 
-    Function SearchItem(ByVal fnRow As Integer, _
+    Function SearchItem(ByVal fnRow As Integer,
                         ByVal fsValue As String) As Boolean
 
         Return searchDetail(fnRow, fsValue, False)
     End Function
 
-    Function SearchCard(Optional ByVal lsValue As String = "", _
+    Function SearchCard(Optional ByVal lsValue As String = "",
                          Optional ByVal lbCode As Boolean = False) As DataRow
         Dim lsSQL As String
         Dim loDT As DataTable
@@ -464,13 +463,13 @@ endwithClear:
     End Function
 
     Private Function getSQLBrowse() As String
-        Return "SELECT" & _
-                    "  sCardIDxx" & _
-                    ", sCardDesc" & _
-                    ", dExpiratn" & _
-                    ", cNoneVatx" & _
-                    ", cRecdStat" & _
-                " FROM " & pxeMasterTble & _
+        Return "SELECT" &
+                    "  sCardIDxx" &
+                    ", sCardDesc" &
+                    ", dExpiratn" &
+                    ", cNoneVatx" &
+                    ", cRecdStat" &
+                " FROM " & pxeMasterTble &
                 " WHERE cRecdStat > " & strParm(xeLogical.NO)
 
         'Return "SELECT" & _
@@ -535,8 +534,8 @@ endwithClear:
         Return True
     End Function
 
-    Private Function searchDetail(ByVal fnRow As Integer, _
-                                    ByVal fsValue As String, _
+    Private Function searchDetail(ByVal fnRow As Integer,
+                                    ByVal fsValue As String,
                                     Optional ByVal fbByCode As Boolean = False) As Boolean
         Dim loDR As DataRow
 
@@ -564,32 +563,32 @@ endWithClear:
     End Function
 
     Private Function getSQLMaster() As String
-        Return "SELECT" & _
-                     "  sCardIDxx" & _
-                     ", sCardDesc" & _
-                     ", sCompnyCd" & _
-                     ", dPrtSince" & _
-                     ", dStartxxx" & _
-                     ", dExpiratn" & _
-                     ", cNoneVatx" & _
-                     ", cRecdStat" & _
-                     ", sModified" & _
-                     ", dModified" & _
-                " FROM " & pxeMasterTble & _
+        Return "SELECT" &
+                     "  sCardIDxx" &
+                     ", sCardDesc" &
+                     ", sCompnyCd" &
+                     ", dPrtSince" &
+                     ", dStartxxx" &
+                     ", dExpiratn" &
+                     ", cNoneVatx" &
+                     ", cRecdStat" &
+                     ", sModified" &
+                     ", dModified" &
+                " FROM " & pxeMasterTble &
                 " ORDER BY sCardIDxx ASC"
     End Function
 
     Private Function getSQLDetail() As String
-        Return "SELECT" & _
-                     "  a.sCategrID" & _
-                     ", b.sDescript" & _
-                     ", a.nMinAmtxx" & _
-                     ", a.nDiscRate" & _
-                     ", a.nDiscAmtx" & _
-                     ", a.dModified" & _
-                     ", a.sCardIDxx" & _
-                " FROM " & pxeDetailTble & " a" & _
-                    " LEFT JOIN Product_Category b" & _
+        Return "SELECT" &
+                     "  a.sCategrID" &
+                     ", b.sDescript" &
+                     ", a.nMinAmtxx" &
+                     ", a.nDiscRate" &
+                     ", a.nDiscAmtx" &
+                     ", a.dModified" &
+                     ", a.sCardIDxx" &
+                " FROM " & pxeDetailTble & " a" &
+                    " LEFT JOIN Product_Category b" &
                         " ON a.sCategrID = b.sCategrCd"
     End Function
 End Class
