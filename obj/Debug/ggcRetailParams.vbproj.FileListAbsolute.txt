@@ -104,17 +104,6 @@ D:\POS\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CopyComp
 D:\POS\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.dll
 D:\POS\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.xml
 D:\POS\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.AssemblyReference.cache
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmAddOns.resources
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmComboItem.resources
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmPromoDiscount.resources
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.Resources.resources
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.GenerateResource.cache
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CoreCompileInputs.cache
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CopyComplete
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.dll
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.xml
-D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
 D:\LP POS\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.AssemblyReference.cache
 D:\LP POS\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmAddOns.resources
 D:\LP POS\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmComboItem.resources
@@ -126,9 +115,6 @@ D:\LP POS\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbpro
 D:\LP POS\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.dll
 D:\LP POS\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.xml
 D:\LP POS\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
-C:\GGC_Systems\vb.net\RetMgySys\ggcRetailParams.dll
-C:\GGC_Systems\vb.net\RetMgySys\ggcRetailParams.pdb
-C:\GGC_Systems\vb.net\RetMgySys\ggcRetailParams.xml
 D:\Guanzon\GMC SEG Folder\vb.net\TJ\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.AssemblyReference.cache
 D:\Guanzon\GMC SEG Folder\vb.net\TJ\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmAddOns.resources
 D:\Guanzon\GMC SEG Folder\vb.net\TJ\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmComboItem.resources
@@ -140,3 +126,42 @@ D:\Guanzon\GMC SEG Folder\vb.net\TJ\POSold\ggcRetailParams\ggcRetailParams\obj\D
 D:\Guanzon\GMC SEG Folder\vb.net\TJ\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.dll
 D:\Guanzon\GMC SEG Folder\vb.net\TJ\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.xml
 D:\Guanzon\GMC SEG Folder\vb.net\TJ\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
+C:\GGC_Systems\vb.net\RetMgySys\ggcRetailParams.dll
+C:\GGC_Systems\vb.net\RetMgySys\ggcRetailParams.pdb
+C:\GGC_Systems\vb.net\RetMgySys\ggcRetailParams.xml
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.AssemblyReference.cache
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmAddOns.resources
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmComboItem.resources
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmPromoDiscount.resources
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.Resources.resources
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.GenerateResource.cache
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CoreCompileInputs.cache
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CopyComplete
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.dll
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.xml
+D:\POSold\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.AssemblyReference.cache
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmAddOns.resources
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmComboItem.resources
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.frmPromoDiscount.resources
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.Resources.resources
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.GenerateResource.cache
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CopyComplete
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.dll
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.xml
+C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
+C:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.dll
+C:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.pdb
+C:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.xml
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.AssemblyReference.cache
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.frmAddOns.resources
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.frmComboItem.resources
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.frmPromoDiscount.resources
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.Resources.resources
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.GenerateResource.cache
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CoreCompileInputs.cache
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.CopyComplete
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.dll
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.xml
+C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
