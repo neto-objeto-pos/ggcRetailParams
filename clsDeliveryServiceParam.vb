@@ -299,12 +299,13 @@ endWithRoll:
             InitRecord()
             p_oDT.Rows.Add()
             p_oDT(0)("sRiderIDx") = loRow(0)
-            p_oDT(0)("sBriefDsc") = loRow(1)
-            p_oDT(0)("sDescript") = loRow(2)
-            p_oDT(0)("dPartnerx") = loRow(3)
-            p_oDT(0)("nSrvcChrg") = loRow(4)
-            p_oDT(0)("dSrvcChrg") = loRow(5)
-            p_oDT(0)("cRecdStat") = loRow(6)
+            p_oDT(0)("sClientID") = loRow(1)
+            p_oDT(0)("sBriefDsc") = loRow(2)
+            p_oDT(0)("sDescript") = loRow(3)
+            p_oDT(0)("dPartnerx") = loRow(4)
+            p_oDT(0)("nSrvcChrg") = loRow(5)
+            p_oDT(0)("dSrvcChrg") = loRow(6)
+            p_oDT(0)("cRecdStat") = loRow(7)
 
             p_nEditMode = xeEditMode.MODE_READY
             Return True
@@ -363,6 +364,7 @@ endWithRoll:
     Private Function getSQLBrowse() As String
         Return "SELECT" &
                     "  sRiderIDx" &
+                    ", sClientID" &
                     ", sBriefDsc" &
                     ", sDescript" &
                     ", dPartnerx" &
