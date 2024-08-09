@@ -86,10 +86,39 @@ Public Class clsInventory
                         End If
                         Return p_oOthersx.sBinNamex
                     Case 85
-                        If Trim(IFNull(p_oDTMstr(0).Item(17))) <> "" And Trim(p_oOthersx.sInvTypex) = "" Then
+                        If Trim(IFNull(p_oDTMstr(0).Item(7))) <> "" And Trim(p_oOthersx.sInvTypex) = "" Then
                             getInvType(7, 85, p_oDTMstr(0).Item(7), True, False)
                         End If
                         Return p_oOthersx.sInvTypex
+                    Case 86
+                        If Trim(IFNull(p_oDTMstr(0).Item(33))) <> "" Then
+                            getPriceHistoryUnitPrice(Index, p_oOthersx.nNewUnitP)
+                        End If
+
+                        Return p_oOthersx.nNewUnitP
+                    Case 87
+                        If Trim(IFNull(p_oDTMstr(0).Item(33))) <> "" Then
+                            getPriceHistorySellPrice(Index, p_oOthersx.nNewSellP)
+                        End If
+
+                        Return p_oOthersx.nNewSellP
+                    Case 88
+                        If Trim(IFNull(p_oDTMstr(0).Item(33))) <> "" Then
+                            getPriceHistoryRecordStat(Index, p_oOthersx.cNewRecdS)
+                        End If
+
+                        Return p_oOthersx.cNewRecdS
+                    Case 33
+                        If Trim(IFNull(p_oDTMstr(0).Item(33))) <> "" Then
+                            Debug.Print(p_oDTMstr(0).Item(Index))
+                            Return p_oDTMstr(0).Item(Index)
+
+                        Else
+                            p_oDTMstr(0).Item(Index) = p_oApp.getSysDate
+                            Return p_oDTMstr(0).Item(Index)
+
+                        End If
+
                     Case Else
                         Return p_oDTMstr(0).Item(Index)
                 End Select
@@ -113,6 +142,12 @@ Public Class clsInventory
                         getBin(16, 84, value, False, False)
                     Case 85 ' sInvTypex
                         getInvType(7, 85, value, False, False)
+                    Case 86 ' nPurPrice
+                        getPriceHistoryUnitPrice(Index, value)
+                    Case 87 ' nSelPrice
+                        getPriceHistorySellPrice(Index, value)
+                    Case 88 ' nSelPrice
+                        getPriceHistoryRecordStat(Index, value)
 
                         'Please give validation for the assignment of values for this fields...
                     Case 8, 9  'nUnitPrce, nSelPrice
@@ -158,8 +193,17 @@ Public Class clsInventory
                         End If
 
                         RaiseEvent MasterRetrieved(Index, p_oDTMstr(0).Item(Index))
+
+                    Case 33
+                        If IsDate(value) Then
+                            p_oDTMstr(0).Item(Index) = value
+                        End If
+                        RaiseEvent MasterRetrieved(Index, p_oDTMstr(0).Item(Index))
+
                     Case Else
                         p_oDTMstr(0).Item(Index) = value
+
+                        RaiseEvent MasterRetrieved(Index, p_oDTMstr(0).Item(Index))
                 End Select
             End If
         End Set
@@ -200,6 +244,15 @@ Public Class clsInventory
                             getInvType(7, 85, p_oDTMstr(0).Item(17), True, False)
                         End If
                         Return p_oOthersx.sInvTypex
+
+                    Case "dpricexxx"
+                        If Trim(IFNull(p_oDTMstr(0).Item(33))) <> "" Then
+                            Return p_oDTMstr(0).Item(Index)
+
+                        Else
+                            Return p_oApp.getSysDate
+
+                        End If
                     Case Else
                         Return p_oDTMstr(0).Item(Index)
                 End Select
@@ -229,6 +282,10 @@ Public Class clsInventory
                         Master(p_oDTMstr.Columns(Index).Ordinal) = value
                     Case "dbeginvxx"
                         Master(p_oDTMstr.Columns(Index).Ordinal) = value
+                    Case "dpricexxx"
+                        Master(p_oDTMstr.Columns(Index).Ordinal) = value
+                    Case "npurprice" '86 ' nPurPrice
+                        getPriceHistoryUnitPrice(Index, value)
                     Case Else
                         p_oDTMstr(0).Item(Index) = value
                 End Select
@@ -346,7 +403,7 @@ Public Class clsInventory
     End Property
 
     Public Function UpdateRecord() As Boolean
-        If p_nEditMode <> xeEditMode.MODE_READY Then Return False
+        'If p_nEditMode <> xeEditMode.MODE_READY Then Return False
 
         p_nEditMode = xeEditMode.MODE_UPDATE
 
@@ -428,10 +485,10 @@ Public Class clsInventory
 
         Dim loDta As DataRow = KwikSearch(p_oApp _
                                         , lsSQL _
-                                        , False _
-                                        , lsFilter _
+                                        , True _
+                                        , fsValue _
                                         , "sBarCodex»sDescript" _
-                                        , "Barcode»Description", _
+                                        , "Barcode»Description",
                                         , "sBarCodex»sDescript" _
                                         , 1)
 
@@ -455,6 +512,7 @@ Public Class clsInventory
                 If fsValue = p_oDTMstr(0).Item("sBarCodex") Then Return True
             Else
                 If fsValue = p_oDTMstr(0).Item("sBriefDsc") Then Return True
+                If fsValue = p_oDTMstr(0).Item("sBriefDsc") Then Return True
             End If
         End If
 
@@ -475,8 +533,8 @@ Public Class clsInventory
 
         Dim loDta As DataRow = KwikSearch(p_oApp _
                                         , lsSQL _
-                                        , False _
-                                        , lsFilter _
+                                        , True _
+                                        , fsValue _
                                         , "sBarCodex»sBriefDsc»sDescript" _
                                         , "Barcode»sBriefDsc»Description",
                                         , "sBarCodex»sBriefDsc»sDescript" _
@@ -523,6 +581,8 @@ Public Class clsInventory
                 'If fsValue <> "" Then
                 getInvType(7, fnIndex, fsValue, False, True)
                 'End If
+            Case Else
+
         End Select
     End Sub
 
@@ -539,8 +599,8 @@ Public Class clsInventory
 
     'Public Function SaveTransaction
     Public Function SaveRecord() As Boolean
-        If Not (p_nEditMode = xeEditMode.MODE_ADDNEW Or _
-                p_nEditMode = xeEditMode.MODE_READY Or _
+        If Not (p_nEditMode = xeEditMode.MODE_ADDNEW Or
+                p_nEditMode = xeEditMode.MODE_READY Or
                 p_nEditMode = xeEditMode.MODE_UPDATE) Then
 
             MsgBox("Invalid Edit Mode detected!", MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, p_sMsgHeadr)
@@ -556,6 +616,11 @@ Public Class clsInventory
 
         If p_sParent = "" Then p_oApp.BeginTransaction()
 
+        If Not UpdatePrices() Then
+            Return False
+
+        End If
+
         Dim lsExcluded As String
         lsExcluded = "sBranchCd»sSectnIDx»sBinIDxxx»dBegInvxx»nBegQtyxx»nQtyOnHnd»nMinLevel»nMaxLevel»nResvOrdr»nBackOrdr»nAveMonSl»sStockID1»sStockID2"
 
@@ -570,7 +635,7 @@ Public Class clsInventory
             p_oApp.Execute(lsSQL, p_sMasTable1)
         End If
 
-        lsExcluded = "sBarCodex»sDescript»sBriefDsc»sCategrID»sSizeIDxx»sMeasurID»sInvTypID»nUnitPrce»nSelPrice»nDiscLev1»nDiscLev2»nDiscLev3»nDealrDsc»cComboMlx»cWthPromo»sStockID1»sStockID2»sImgePath"
+        lsExcluded = "sBarCodex»sDescript»sBriefDsc»sCategrID»sSizeIDxx»sMeasurID»sInvTypID»nUnitPrce»nSelPrice»nDiscLev1»nDiscLev2»nDiscLev3»nDealrDsc»cComboMlx»cWthPromo»sStockID1»sStockID2»sImgePath»dPricexxx"
 
         'Save Inventory_Master table 
         If p_oDTMstr(0).Item("sStockID2") = "" Then
@@ -607,23 +672,23 @@ Public Class clsInventory
 
                             'Create the UPDATE SQL statement if there is/are changes detected from above
                             If lsSQL <> "" Then
-                                lsSQL = "UPDATE " & p_sMasTable3 & _
-                                       " SET " & Mid(lsSQL, 2) & _
-                                       " WHERE sComboIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & _
+                                lsSQL = "UPDATE " & p_sMasTable3 &
+                                       " SET " & Mid(lsSQL, 2) &
+                                       " WHERE sComboIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
                                          " AND sStockIDx = " & strParm(p_oDTComb(lnCtr).Item("sStockIDx"))
                             End If
                         Case "1" 'Add
                             'Create the INSERT statement
-                            lsSQL = "INSERT INTO " & p_sMasTable3 & _
-                                   " SET sComboIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & _
-                                      ", nEntryNox = " & lnValidCtr & _
-                                      ", sStockIDx = " & strParm(p_oDTComb(lnCtr).Item("sStockIDx")) & _
-                                      ", nQuantity = " & p_oDTComb(lnCtr).Item("nQuantity") & _
+                            lsSQL = "INSERT INTO " & p_sMasTable3 &
+                                   " SET sComboIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
+                                      ", nEntryNox = " & lnValidCtr &
+                                      ", sStockIDx = " & strParm(p_oDTComb(lnCtr).Item("sStockIDx")) &
+                                      ", nQuantity = " & p_oDTComb(lnCtr).Item("nQuantity") &
                                       ", dModified = " & dateParm(p_oApp.getSysDate)
                         Case "2" 'Remove
                             'Create the DELETE statement
-                            lsSQL = "DELETE FROM " & p_sMasTable3 & _
-                                   " WHERE sComboIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & _
+                            lsSQL = "DELETE FROM " & p_sMasTable3 &
+                                   " WHERE sComboIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
                                      " AND sStockIDx = " & strParm(p_oDTComb(lnCtr).Item("sStockIDx"))
                     End Select
 
@@ -642,6 +707,227 @@ Public Class clsInventory
         Return True
 
         'Catch
+
+    End Function
+
+    Public Function UpdatePrices() As Boolean
+        Dim lsSQL As String = ""
+        Dim lnRow As Integer
+        Dim lbUpdatedUnitPrice As Boolean = False
+        Dim lbUpdatedSellPrice As Boolean = False
+        Dim lbUpdatedRecordStat As Boolean = False
+
+        If Not p_nEditMode = xeEditMode.MODE_ADDNEW Then
+            ' Check if date effectivity has changed
+            If p_oDTMstr(0).Item("dPricexxx") IsNot Nothing Then
+                If p_oDTMstr(0).Item("dPricexxx") <= p_oApp.getSysDate Then
+
+                    ' Check if unit price has changed
+                    If p_oDTMstr(0).Item("nUnitPrce") <> p_oOthersx.nNewUnitP Then
+                        p_oDTMstr(0).Item("nUnitPrce") = p_oOthersx.nNewUnitP
+                        lbUpdatedUnitPrice = True
+                    End If
+
+                    ' Check if selling price has changed
+                    If p_oDTMstr(0).Item("nSelPrice") <> p_oOthersx.nNewSellP Then
+                        p_oDTMstr(0).Item("nSelPrice") = p_oOthersx.nNewSellP
+                        lbUpdatedSellPrice = True
+                    End If
+                    ' Check if record stat has changed
+                    If p_oDTMstr(0).Item("cRecdStat") <> p_oOthersx.cNewRecdS Then
+                        p_oDTMstr(0).Item("cRecdStat") = p_oOthersx.cNewRecdS
+                        lbUpdatedRecordStat = True
+                    End If
+                Else
+                    ' Check if unit price has changed
+                    If p_oDTMstr(0).Item("nUnitPrce") <> p_oOthersx.nNewUnitP Then
+                        lbUpdatedUnitPrice = True
+                    End If
+
+                    ' Check if selling price has changed
+                    If p_oDTMstr(0).Item("nSelPrice") <> p_oOthersx.nNewSellP Then
+                        lbUpdatedSellPrice = True
+
+                    End If
+
+                    ' Check if record stat has changed
+                    If p_oDTMstr(0).Item("cRecdStat") <> p_oOthersx.cNewRecdS Then
+                        lbUpdatedRecordStat = True
+                    End If
+                End If
+
+                If lbUpdatedUnitPrice Or lbUpdatedSellPrice Or lbUpdatedRecordStat Then
+                    lsSQL = "INSERT INTO Price_History SET" &
+                                "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
+                                ", dPricexxx = " & dateParm(p_oDTMstr(0).Item("dPricexxx")) &
+                                ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
+                                ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
+                                ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
+                                ", cRecdStat = " & CDec(p_oOthersx.cNewRecdS) &
+                                ", sModified = " & strParm(p_oApp.UserID) &
+                                ", dModified = " & datetimeParm(p_oApp.getSysDate)
+
+                    Try
+                        lnRow = p_oApp.Execute(lsSQL, "Price_History")
+                        If lnRow <= 0 Then
+                            MsgBox("Unable to Save Transaction!!!" & vbCrLf &
+                                    "Please contact GGC SSG/SEG for assistance!!!", MsgBoxStyle.Critical, "WARNING")
+                            Return False
+                        End If
+                    Catch ex As Exception
+                        Throw ex
+                    End Try
+                End If
+            End If
+
+        Else
+
+            lsSQL = AddCondition(getSQ_HistoryPrice, "sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & " ORDER BY dModified DESC LIMIT 1 ")
+            loDT = p_oApp.ExecuteQuery(lsSQL)
+
+            If loDT.Rows.Count = 0 Then
+                lsSQL = "INSERT INTO Price_History SET" &
+                                "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
+                                ", dPricexxx = NULL " &
+                                ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
+                                ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
+                                ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
+                                ", cRecdStat = " & CDec(p_oOthersx.cNewRecdS) &
+                                ", sModified = " & strParm(p_oApp.UserID) &
+                                ", dModified = " & datetimeParm(p_oApp.getSysDate)
+
+                Try
+                    lnRow = p_oApp.Execute(lsSQL, "Price_History")
+                    If lnRow <= 0 Then
+                        MsgBox("Unable to Save Transaction!!!" & vbCrLf &
+                                "Please contact GGC SSG/SEG for assistance!!!", MsgBoxStyle.Critical, "WARNING")
+                        Return False
+                    End If
+                Catch ex As Exception
+                    Throw ex
+                End Try
+
+            End If
+            If p_oDTMstr(0).Item("dPricexxx") > p_oApp.getSysDate Then
+                lsSQL = AddCondition(getSQ_HistoryPrice, "dPricexxx =" & dateParm(p_oDTMstr(0).Item("dPricexxx")) & "AND sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & " ORDER BY dModified DESC LIMIT 1 ")
+                loDT = p_oApp.ExecuteQuery(lsSQL)
+
+                If loDT.Rows.Count = 0 Then
+                    'execute future price
+                    lsSQL = "INSERT INTO Price_History SET" &
+                                "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
+                                ", dPricexxx = " & dateParm(p_oDTMstr(0).Item("dPricexxx")) &
+                                ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
+                                ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
+                                ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
+                                ", cRecdStat = " & CDec(p_oOthersx.cNewRecdS) &
+                                ", sModified = " & strParm(p_oApp.UserID) &
+                                ", dModified = " & datetimeParm(p_oApp.getSysDate)
+
+
+
+                Else
+
+                    lsSQL = "INSERT INTO Price_History SET" &
+                                "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
+                                ", dPricexxx = " & dateParm(p_oDTMstr(0).Item("dPricexxx")) &
+                                ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
+                                ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
+                                ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
+                                ", cRecdStat = " & CDec(p_oOthersx.cNewRecdS) &
+                                ", sModified = " & strParm(p_oApp.UserID) &
+                                ", dModified = " & datetimeParm(p_oApp.getSysDate)
+                    If p_oDTMstr(0).Item("nUnitPrce") <> loDT(0).item("nPurPrice") Then
+                        lbUpdatedUnitPrice = True
+                    End If
+
+                    ' Check if selling price has changed
+                    If p_oDTMstr(0).Item("nSelPrice") <> loDT(0).item("nSelPrice") Then
+                        lbUpdatedSellPrice = True
+
+                    End If
+
+                    ' Check if record stat has changed
+                    If p_oDTMstr(0).Item("cRecdStat") <> loDT(0).item("cRecdStat") Then
+                        lbUpdatedRecordStat = True
+                    End If
+
+
+                End If
+
+                Try
+                        lnRow = p_oApp.Execute(lsSQL, "Price_History")
+                        If lnRow <= 0 Then
+                            MsgBox("Unable to Save Transaction!!!" & vbCrLf &
+                            "Please contact GGC SSG/SEG for assistance!!!", MsgBoxStyle.Critical, "WARNING")
+                            Return False
+                        End If
+                    Catch ex As Exception
+                        Throw ex
+                    End Try
+
+                    Else
+                ' Check if unit price has changed
+                If p_oDTMstr(0).Item("nUnitPrce") <> p_oOthersx.nNewUnitP Then
+                    lbUpdatedUnitPrice = True
+                End If
+
+                ' Check if selling price has changed
+                If p_oDTMstr(0).Item("nSelPrice") <> p_oOthersx.nNewSellP Then
+                    lbUpdatedSellPrice = True
+
+                End If
+
+                ' Check if record stat has changed
+                If p_oDTMstr(0).Item("cRecdStat") <> p_oOthersx.cNewRecdS Then
+                    lbUpdatedRecordStat = True
+                End If
+
+
+                If lbUpdatedUnitPrice Or lbUpdatedSellPrice Or lbUpdatedRecordStat Then
+                    lsSQL = "INSERT INTO Price_History SET" &
+                                "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
+                                ", dPricexxx = " & dateParm(p_oDTMstr(0).Item("dPricexxx")) &
+                                ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
+                                ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
+                                ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
+                                ", cRecdStat = " & CDec(p_oOthersx.cNewRecdS) &
+                                ", sModified = " & strParm(p_oApp.UserID) &
+                                ", dModified = " & datetimeParm(p_oApp.getSysDate)
+
+                    Try
+                        lnRow = p_oApp.Execute(lsSQL, "Price_History")
+                        If lnRow <= 0 Then
+                            MsgBox("Unable to Save Transaction!!!" & vbCrLf &
+                            "Please contact GGC SSG/SEG for assistance!!!", MsgBoxStyle.Critical, "WARNING")
+                            Return False
+                        End If
+                    Catch ex As Exception
+                        Throw ex
+                    End Try
+                End If
+
+                If p_oDTMstr(0).Item("dPricexxx") <= p_oApp.getSysDate Then
+                        If p_oDTMstr(0).Item("nUnitPrce") <> p_oOthersx.nNewUnitP Then
+                            p_oDTMstr(0).Item("nUnitPrce") = p_oOthersx.nNewUnitP
+                        End If
+
+                        If p_oDTMstr(0).Item("nSelPrice") <> p_oOthersx.nNewSellP Then
+                            p_oDTMstr(0).Item("nSelPrice") = p_oOthersx.nNewSellP
+                        End If
+
+                        If p_oDTMstr(0).Item("cRecdStat") <> p_oOthersx.cNewRecdS Then
+                            p_oDTMstr(0).Item("cRecdStat") = p_oOthersx.cNewRecdS
+                        End If
+                    End If
+
+                End If
+
+            End If
+
+
+
+        Return True
 
     End Function
 
@@ -991,6 +1277,8 @@ Public Class clsInventory
         End If
     End Sub
 
+
+
     'This method implements a search master where id and desc are not joined.
     Private Sub getComboItem(ByVal fnItemRw As Integer _
                            , ByVal fnColIdx As Integer _
@@ -1007,13 +1295,13 @@ Public Class clsInventory
         End If
 
         Dim lsSQL As String
-        lsSQL = "SELECT" & _
-                       "  a.sBarCodex" & _
-                       ", a.sDescript" & _
-                       ", a.sStockIDx" & _
-               " FROM `Inventory` a" & _
-               " WHERE a.cComboMlx = '0'" & _
-        IIf(fbIsCode = False, " AND a.cRecdStat = '1'", "")
+        lsSQL = "SELECT" &
+                       "  a.sBarCodex" &
+                       ", a.sDescript" &
+                       ", a.sStockIDx" &
+               " FROM `Inventory` a" &
+               " WHERE a.cComboMlx = '0'" &
+                IIf(fbIsCode = False, " AND a.cRecdStat = '1'", "")
 
         'Are we using like comparison or equality comparison
         If fbIsSrch Then
@@ -1022,7 +1310,7 @@ Public Class clsInventory
                                              , True _
                                              , fsValue _
                                              , "sBarCodex»sDescript»sStockIDx" _
-                                             , "Barcode»Description»Stock ID", _
+                                             , "Barcode»Description»Stock ID",
                                              , "a.sBarCodex»a.sDescript»a.sStockIDx" _
                                              , IIf(fbIsCode, 2, IIf(fnColDsc = 5, 0, 1)))
 
@@ -1072,6 +1360,175 @@ Public Class clsInventory
         End If
     End Sub
 
+    Sub getPriceHistoryUnitPrice(ByVal fnColDsc As Integer, ByVal value As Object)
+        Dim loDT As New DataTable
+        Dim lsSQL As String
+        If p_nEditMode = EditMode.MODE_ADDNEW Then
+            If IsNumeric(value) Then
+                p_oOthersx.nNewUnitP = value
+                If IFNull(p_oDTMstr(0).Item("dPricexxx"), p_oApp.getSysDate) <= p_oApp.getSysDate Then
+                    p_oDTMstr(0).Item("nUnitPrce") = p_oOthersx.nNewUnitP
+                    RaiseEvent MasterRetrieved(8, p_oDTMstr(0).Item("nUnitPrce"))
+                End If
+
+            End If
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewUnitP)
+            Exit Sub
+
+        ElseIf p_nEditMode = EditMode.MODE_UPDATE Then
+            If IsNumeric(value) Then
+                p_oOthersx.nNewUnitP = value
+                'If IFNull(p_oDTMstr(0).Item("dPricexxx"), p_oApp.getSysDate) <= p_oApp.getSysDate Then
+                '    'p_oDTMstr(0).Item("nUnitPrce") = p_oOthersx.nNewUnitP
+                '    RaiseEvent MasterRetrieved(8, p_oDTMstr(0).Item("nUnitPrce"))
+                'End If
+
+            End If
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewUnitP)
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewUnitP)
+            Exit Sub
+
+        End If
+        lsSQL = AddCondition(getSQ_HistoryPrice, "sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & " ORDER BY dModified DESC LIMIT 1 ")
+        loDT = p_oApp.ExecuteQuery(lsSQL)
+
+        If loDT.Rows.Count = 0 Then
+            p_oOthersx.nNewUnitP = p_oDTMstr(0).Item("nUnitPrce")
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewUnitP)
+
+        Else
+            p_oOthersx.nNewUnitP = loDT(0).Item("nPurPrice")
+
+            If Not IsDBNull(p_oDTMstr(0).Item("dPricexxx")) Then
+                If p_oDTMstr(0).Item("dPricexxx") >= p_oApp.getSysDate Then
+                    'p_oDTMstr(0).Item("nUnitPrce") = loDT(0).Item("nPurPrice")
+                    p_oDTMstr(0).Item("dPricexxx") = IFNull(loDT(0).Item("dPricexxx"), p_oApp.getSysDate)
+
+                    'RaiseEvent MasterRetrieved(8, p_oDTMstr(0).Item("nUnitPrce"))
+                    RaiseEvent MasterRetrieved(33, p_oDTMstr(0).Item("dPricexxx"))
+
+                End If
+
+
+            End If
+
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewUnitP)
+        End If
+
+    End Sub
+
+    Sub getPriceHistorySellPrice(ByVal fnColDsc As Integer, ByVal value As Object)
+        Dim loDT As New DataTable
+        Dim lsSQL As String
+        If p_nEditMode = EditMode.MODE_ADDNEW Then
+            If IsNumeric(value) Then
+                p_oOthersx.nNewSellP = value
+                If IFNull(p_oDTMstr(0).Item("dPricexxx"), p_oApp.getSysDate) <= p_oApp.getSysDate Then
+                    p_oDTMstr(0).Item("nSelPrice") = p_oOthersx.nNewSellP
+                    RaiseEvent MasterRetrieved(9, p_oDTMstr(0).Item("nSelPrice"))
+                End If
+
+            End If
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewSellP)
+            Exit Sub
+
+
+        ElseIf p_nEditMode = EditMode.MODE_UPDATE Then
+            If IsNumeric(value) Then
+                p_oOthersx.nNewSellP = value
+                'If IFNull(p_oDTMstr(0).Item("dPricexxx"), p_oApp.getSysDate) <= p_oApp.getSysDate Then
+                '    p_oDTMstr(0).Item("nSelPrice") = p_oOthersx.nNewUnitP
+                '    RaiseEvent MasterRetrieved(9, p_oDTMstr(0).Item("nSelPrice"))
+                'End If
+
+            End If
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewSellP)
+            Exit Sub
+
+        End If
+        lsSQL = AddCondition(getSQ_HistoryPrice, "sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & " ORDER BY dModified DESC LIMIT 1 ")
+        loDT = p_oApp.ExecuteQuery(lsSQL)
+
+        If loDT.Rows.Count = 0 Then
+            p_oOthersx.nNewSellP = p_oDTMstr(0).Item("nSelPrice")
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewSellP)
+
+        Else
+            p_oOthersx.nNewSellP = loDT(0).Item("nSelPrice")
+            If Not IsDBNull(p_oDTMstr(0).Item("dPricexxx")) Then
+                If p_oDTMstr(0).Item("dPricexxx") >= p_oApp.getSysDate Then
+                    'p_oDTMstr(0).Item("nSelPrice") = loDT(0).Item("nSelPrice")
+                    p_oDTMstr(0).Item("dPricexxx") = IFNull(loDT(0).Item("dPricexxx"), p_oApp.getSysDate)
+
+                    'RaiseEvent MasterRetrieved(9, p_oDTMstr(0).Item("nSelPrice"))
+                    RaiseEvent MasterRetrieved(33, p_oDTMstr(0).Item("dPricexxx"))
+
+                End If
+
+
+            End If
+
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewSellP)
+        End If
+
+
+    End Sub
+
+    Sub getPriceHistoryRecordStat(ByVal fnColDsc As Integer, ByVal value As Object)
+        Dim loDT As New DataTable
+        Dim lsSQL As String
+        If p_nEditMode = EditMode.MODE_ADDNEW Then
+            If IsNumeric(value) Then
+                p_oOthersx.cNewRecdS = value
+                If IFNull(p_oDTMstr(0).Item("dPricexxx"), p_oApp.getSysDate) <= p_oApp.getSysDate Then
+                    p_oDTMstr(0).Item("cRecdStat") = p_oOthersx.cNewRecdS
+                    RaiseEvent MasterRetrieved(27, p_oDTMstr(0).Item("cRecdStat"))
+                End If
+
+            End If
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.cNewRecdS)
+            Exit Sub
+
+
+        ElseIf p_nEditMode = EditMode.MODE_UPDATE Then
+            If IsNumeric(value) Then
+                p_oOthersx.cNewRecdS = value
+
+            End If
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.cNewRecdS)
+            Exit Sub
+
+        End If
+        lsSQL = AddCondition(getSQ_HistoryPrice, "sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) & " ORDER BY dModified DESC LIMIT 1 ")
+        loDT = p_oApp.ExecuteQuery(lsSQL)
+
+        If loDT.Rows.Count = 0 Then
+            p_oOthersx.cNewRecdS = p_oDTMstr(0).Item("cRecdStat")
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.cNewRecdS)
+
+        Else
+            p_oOthersx.cNewRecdS = loDT(0).Item("cRecdStat")
+
+            If Not IsDBNull(p_oDTMstr(0).Item("dPricexxx")) Then
+                If p_oDTMstr(0).Item("dPricexxx") >= p_oApp.getSysDate Then
+                    'p_oDTMstr(0).Item("nSelPrice") = loDT(0).Item("nSelPrice")
+                    p_oDTMstr(0).Item("dPricexxx") = IFNull(loDT(0).Item("dPricexxx"), p_oApp.getSysDate)
+                    Debug.Print(p_oDTMstr(0).Item("dPricexxx"))
+                    'RaiseEvent MasterRetrieved(9, p_oDTMstr(0).Item("nSelPrice"))
+                    RaiseEvent MasterRetrieved(33, p_oDTMstr(0).Item("dPricexxx"))
+
+                End If
+
+
+
+            End If
+            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.cNewRecdS)
+        End If
+
+
+    End Sub
+
+
     Private Sub initMaster()
         Dim lnCtr As Integer
         For lnCtr = 0 To p_oDTMstr.Columns.Count - 1
@@ -1083,7 +1540,7 @@ Public Class clsInventory
                 Case "dmodified", "smodified"
                 Case "sbranchcd"
                     p_oDTMstr(0).Item(lnCtr) = p_oApp.BranchCode
-                Case "dbeginvxx"
+                Case "dbeginvxx", "dpricexxx"
                     p_oDTMstr(0).Item(lnCtr) = p_oApp.SysDate
                 Case "crecdstat"
                     p_oDTMstr(0).Item(lnCtr) = "1"
@@ -1106,6 +1563,9 @@ Public Class clsInventory
         p_oOthersx.sSectnNme = ""
         p_oOthersx.sBinNamex = ""
         p_oOthersx.sInvTypex = ""
+        p_oOthersx.nNewSellP = 0
+        p_oOthersx.nNewUnitP = 0
+        p_oOthersx.cNewRecdS = 1
     End Sub
 
     Public Sub showComboMeals()
@@ -1229,6 +1689,11 @@ Public Class clsInventory
             Return False
         End If
 
+        If IsDBNull(p_oDTMstr(0).Item("dPricexxx")) Then
+            MsgBox("Date price seems to have a problem! Please check your entry", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, p_sMsgHeadr)
+            Return False
+        End If
+
         'If Trim(p_oDTMstr(0).Item("cWthPromo")) = 0 Then
         '    If Trim(p_oDTMstr(0).Item("nUnitPrce")) = 0 Then
         '        MsgBox("Unit Price seems to have a problem! Please check your entry....", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, p_sMsgHeadr)
@@ -1292,7 +1757,7 @@ Public Class clsInventory
                     ", a.nDiscLev2" &
                     ", a.nDiscLev3" &
                     ", a.nDealrDsc" &
-                    ", b.sBranchCd" &
+                    ", IFNULL(b.sBranchCd,'') sBranchCd " &
                     ", b.sSectnIDx" &
                     ", b.sBinIDxxx" &
                     ", b.dBegInvxx" &
@@ -1311,24 +1776,39 @@ Public Class clsInventory
                     ", IFNULL(a.sStockIDx, '') sStockID1" &
                     ", IFNULL(b.sStockIDx, '') sStockID2" &
                     ", IFNULL(sImgePath, '') sImgePath" &
+                    ", a.dPricexxx" &
                 " FROM " & p_sMasTable1 & " a" &
                     " LEFT JOIN " & p_sMasTable2 & " b on a.sStockIDx = b.sStockIDx" &
                         " AND b.sBranchCd = " & strParm(p_oApp.BranchCode)
     End Function
 
     Private Function getSQ_Browse() As String
-        Return "SELECT a.sStockIDx" & _
-                    ", a.sBarCodex" & _
-                    ", a.sBriefDsc" & _
-                    ", a.sDescript" & _
-                    ", IFNULL(b.sStockIDx, '') xStockIDx" & _
-              " FROM " & p_sMasTable1 & " a" & _
+        Return "SELECT a.sStockIDx sStockIDx" &
+                    ", a.sBarCodex sBarCodex" &
+                    ", a.sBriefDsc sBriefDsc" &
+                    ", a.sDescript sDescript" &
+                    ", IFNULL(b.sStockIDx, '') xStockIDx" &
+              " FROM " & p_sMasTable1 & " a" &
                   " LEFT JOIN " & p_sMasTable2 & " b ON a.sStockIDx = b.sStockIDx"
+    End Function
+
+    Private Function getSQ_HistoryPrice() As String
+        Return "SELECT sStockIDx" &
+                    ", dPricexxx" &
+                    ", nPurPrice" &
+                    ", nSelPrice" &
+                    ", sCategrID" &
+                    ", cRecdStat" &
+              " FROM Price_History "
     End Function
 
     Public Sub New(ByVal foRider As GRider)
         p_oApp = foRider
         p_nEditMode = xeEditMode.MODE_UNKNOWN
+    End Sub
+
+    Private Sub clsInventory_MasterRetrieved(Index As Integer, Value As Object) Handles Me.MasterRetrieved
+
     End Sub
 
     Private Class Others
@@ -1338,5 +1818,8 @@ Public Class clsInventory
         Public sSectnNme As String
         Public sBinNamex As String
         Public sInvTypex As String
+        Public nNewUnitP As Double
+        Public nNewSellP As Double
+        Public cNewRecdS As Integer
     End Class
 End Class
