@@ -151,9 +151,6 @@ C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailPa
 C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.dll
 C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.xml
 C:\Users\User\source\repos\ggcRetailParams\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
-C:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.dll
-C:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.pdb
-C:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.xml
 C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.vbproj.AssemblyReference.cache
 C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.frmAddOns.resources
 C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.frmComboItem.resources
@@ -165,3 +162,6 @@ C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.vbpr
 C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.dll
 C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.xml
 C:\Users\Maynard\Documents\GitHub\ggcRetailParams\obj\Debug\ggcRetailParams.pdb
+D:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.dll
+D:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.pdb
+D:\GGC_Systems\vb.net\RetMgtSys\ggcRetailParams.xml
