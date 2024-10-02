@@ -724,12 +724,14 @@ Public Class clsInventory
 
                     ' Check if unit price has changed
                     If p_oDTMstr(0).Item("nUnitPrce") <> p_oOthersx.nNewUnitP Then
+                        Debug.Print(p_oDTMstr(0).Item("nUnitPrce"))
                         p_oDTMstr(0).Item("nUnitPrce") = p_oOthersx.nNewUnitP
                         lbUpdatedUnitPrice = True
                     End If
 
                     ' Check if selling price has changed
                     If p_oDTMstr(0).Item("nSelPrice") <> p_oOthersx.nNewSellP Then
+                        Debug.Print(p_oDTMstr(0).Item("nSelPrice"))
                         p_oDTMstr(0).Item("nSelPrice") = p_oOthersx.nNewSellP
                         lbUpdatedSellPrice = True
                     End If
@@ -757,12 +759,15 @@ Public Class clsInventory
                 End If
 
                 If lbUpdatedUnitPrice Or lbUpdatedSellPrice Or lbUpdatedRecordStat Then
+                    Debug.Print(p_oDTMstr(0).Item("sStockIDx"))
+                    Debug.Print(p_oDTMstr(0).Item("dPricexxx"))
+                    Debug.Print(IFNull(p_oDTMstr(0).Item("sCategrID"), ""))
                     lsSQL = "INSERT INTO Price_History SET" &
                                 "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
                                 ", dPricexxx = " & dateParm(p_oDTMstr(0).Item("dPricexxx")) &
                                 ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
                                 ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
-                                ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
+                                ", sCategrID = " & strParm(IFNull(p_oDTMstr(0).Item("sCategrID"), "")) &
                                 ", cRecdStat = " & CDec(p_oOthersx.cNewRecdS) &
                                 ", sModified = " & strParm(p_oApp.UserID) &
                                 ", dModified = " & datetimeParm(p_oApp.getSysDate)
@@ -1384,7 +1389,6 @@ Public Class clsInventory
                 'End If
 
             End If
-            RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewUnitP)
             RaiseEvent MasterRetrieved(fnColDsc, p_oOthersx.nNewUnitP)
             Exit Sub
 
