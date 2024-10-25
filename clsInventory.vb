@@ -653,7 +653,7 @@ Public Class clsInventory
         If p_oDTMstr(0).Item("cComboMlx") = 1 Then
             Dim lnCtr As Integer
             Dim lnValidCtr As Integer
-            lnValidCtr = 0
+            lnValidCtr = 1
 
             For lnCtr = 0 To p_oDTComb.Rows.Count - 1
                 lsSQL = ""
@@ -664,6 +664,7 @@ Public Class clsInventory
                             If p_oDTComb(lnCtr).Item("nEntryNox") <> lnValidCtr Then
                                 lsSQL = ", nEntryNox = " & lnValidCtr
                             End If
+                            lnValidCtr = lnValidCtr + 1
 
                             ' check changes in nQuantity value 
                             If p_oDTComb(lnCtr).Item("nQuantity") <> p_oDTComb(lnCtr).Item("xQuantity") Then
@@ -685,6 +686,7 @@ Public Class clsInventory
                                       ", sStockIDx = " & strParm(p_oDTComb(lnCtr).Item("sStockIDx")) &
                                       ", nQuantity = " & p_oDTComb(lnCtr).Item("nQuantity") &
                                       ", dModified = " & dateParm(p_oApp.getSysDate)
+                            lnValidCtr = lnValidCtr + 1
                         Case "2" 'Remove
                             'Create the DELETE statement
                             lsSQL = "DELETE FROM " & p_sMasTable3 &
