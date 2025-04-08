@@ -420,6 +420,10 @@ Public Class clsInventory
     Public Function NewRecord() As Boolean
         Dim lsSQL As String
 
+        If Not p_oApp.BranchCode = "P001" Or Not p_oApp.BranchCode = "P013" Or Not p_oApp.BranchCode.StartsWith("X") Then
+            Return False
+
+        End If
         lsSQL = AddCondition(getSQ_Master, "0=1")
         p_oDTMstr = p_oApp.ExecuteQuery(lsSQL)
         p_oDTMstr.Rows.Add(p_oDTMstr.NewRow())
