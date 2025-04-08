@@ -1540,9 +1540,9 @@ Public Class clsInventory
         For lnCtr = 0 To p_oDTMstr.Columns.Count - 1
             Select Case LCase(p_oDTMstr.Columns(lnCtr).ColumnName)
                 Case "sstockidx"
-                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sStockIDx", True, p_oApp.Connection, True, p_oApp.BranchCode)
+                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sStockIDx", True, p_oApp.Connection, True, "POS")
                 Case "sbarcodex"
-                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sBarcodex", True, p_oApp.Connection)
+                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sBarcodex", True, p_oApp.Connection, True, "POS")
                 Case "dmodified", "smodified"
                 Case "sbranchcd"
                     p_oDTMstr(0).Item(lnCtr) = p_oApp.BranchCode
@@ -1642,7 +1642,7 @@ Public Class clsInventory
             .Columns.Add("sStockIDx", GetType(String)).MaxLength = 12
             .Columns.Add("nQuantity", GetType(Integer))
             .Columns.Add("dModified", GetType(Date))
-            .Columns.Add("sBarCodex", GetType(String)).MaxLength = 12
+            .Columns.Add("sBarCodex", GetType(String)).MaxLength = 17
             .Columns.Add("sDescript", GetType(String)).MaxLength = 64
             .Columns.Add("xComboIDx", GetType(String)).MaxLength = 12
             .Columns.Add("xQuantity", GetType(Integer))
@@ -1685,6 +1685,11 @@ Public Class clsInventory
     End Sub
 
     Private Function isEntryOk() As Boolean
+
+        If Trim(p_oDTMstr(0).Item("sStockIDx")) = "" Then
+            MsgBox("StockID No seems to have a problem! Please check your entry....", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, p_sMsgHeadr)
+            Return False
+        End If
         If Trim(p_oDTMstr(0).Item("sBarCodex")) = "" Then
             MsgBox("Barcode No seems to have a problem! Please check your entry....", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, p_sMsgHeadr)
             Return False
