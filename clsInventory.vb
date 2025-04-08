@@ -420,7 +420,7 @@ Public Class clsInventory
     Public Function NewRecord() As Boolean
         Dim lsSQL As String
 
-        If Not p_oApp.BranchCode = "P001" Or Not p_oApp.BranchCode = "P013" Or Not p_oApp.BranchCode.StartsWith("X") Then
+        If Not p_oApp.BranchCode = "P001" AndAlso Not p_oApp.BranchCode = "P013" AndAlso Not p_oApp.BranchCode.StartsWith("X") Then
             Return False
 
         End If
