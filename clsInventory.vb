@@ -799,7 +799,7 @@ Public Class clsInventory
             If loDT.Rows.Count = 0 Then
                 lsSQL = "INSERT INTO Price_History SET" &
                                 "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
-                                ", dPricexxx = NULL " &
+                                ", dPricexxx = " & dateParm(IFNull(p_oDTMstr(0).Item("dPricexxx"), dateParm(p_oApp.getSysDate))) &
                                 ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
                                 ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
                                 ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
