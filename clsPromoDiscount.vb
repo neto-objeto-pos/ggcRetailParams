@@ -469,38 +469,38 @@ Public Class clsPromoDiscount
         Dim loDta As DataTable
 
         'Load all possible promo for this item...
-        lsSQL = "SELECT" & _
-                       "  IFNULL(b.sBriefDsc, c.sDescript) xPromoItm" & _
-                       ", IFNULL(IFNULL(e.sBriefDsc, f.sDescript), '') xDsctdItm" & _
-                       ", a.nMinQtyxx" & _
-                       ", a.nBaseQtyx" & _
-                       ", a.nDiscRate nDDiscRte" & _
-                       ", a.nDiscAmtx nDDiscAmt" & _
-                       ", IFNULL(d.nMinQtyxx, 0) nMaxQtyxx" & _
-                       ", IFNULL(d.nDiscRate, 0) nDiscRate" & _
-                       ", IFNULL(d.nDiscAmtx, 0) nDiscAmtx" & _
-                       ", IFNULL(d.sCategrCd, '') xCategrCd" & _
-                       ", IFNULL(d.sStockIDx, '') xStockIDx" & _
-                       ", IFNULL(e.nSelPrice, 0) xUnitPrce" & _
-                       ", '0' cSelected" & _
-                       ", IFNULL(d.sStockIDx, '') sStockIDx" & _
-                       ", IFNULL(e.sBarCodex, '') sBarcodex" & _
-                       ", IFNULL(e.sBriefDsc, '') sBriefDsc" & _
-                       ", IFNULL(e.sDescript, '') sDescript" & _
-                       ", IFNULL(d.sCategrCd, '') sCategrCd" & _
-                       ", IFNULL(e.cComboMlx, '') cComboMlx" & _
-                       ", IFNULL(e.nSelPrice, 0)  nUnitPrce" & _
-                       ", 0 nQuantity" & _
-                       ", 0 nPromBght" & _
-                       ", 0 nWeightxx" & _
-               " FROM Promo_Discount a" & _
-                    " LEFT JOIN Inventory b ON a.sStockIDx = b.sStockIDx" & _
-                    " LEFT JOIN Product_Category c ON a.sCategrCd = c.sCategrCd" & _
-                    " LEFT JOIN Promo_Discount_Detail d ON a.sTransNox = d.sTransNox" & _
-                    " LEFT JOIN Inventory e ON d.sStockIDx = e.sStockIDx" & _
-                    " LEFT JOIN Product_Category f ON d.sCategrCd = f.sCategrCd" & _
-               " WHERE " & dateParm(fdTransact) & " BETWEEN IFNULL(a.dPromoFrm, " & dateParm(fdTransact) & ") AND IFNULL(a.dPromoTru, NOW())" & _
-                 " AND TIME(" & datetimeParm(fdTransact) & ") BETWEEN TIME(IFNULL(a.dHappyHrF, " & strParm(fdTransact) & ")) AND TIME(IFNULL(a.dHappyHrT, NOW()))" & _
+        lsSQL = "SELECT" &
+                       "  IFNULL(b.sBriefDsc, c.sDescript) xPromoItm" &
+                       ", IFNULL(IFNULL(e.sBriefDsc, f.sDescript), '') xDsctdItm" &
+                       ", a.nMinQtyxx" &
+                       ", a.nBaseQtyx" &
+                       ", a.nDiscRate nDDiscRte" &
+                       ", a.nDiscAmtx nDDiscAmt" &
+                       ", IFNULL(d.nMinQtyxx, 0) nMaxQtyxx" &
+                       ", IFNULL(d.nDiscRate, 0) nDiscRate" &
+                       ", IFNULL(d.nDiscAmtx, 0) nDiscAmtx" &
+                       ", IFNULL(d.sCategrCd, '') xCategrCd" &
+                       ", IFNULL(d.sStockIDx, '') xStockIDx" &
+                       ", IFNULL(e.nSelPrice, 0) xUnitPrce" &
+                       ", '0' cSelected" &
+                       ", IFNULL(d.sStockIDx, '') sStockIDx" &
+                       ", IFNULL(e.sBarCodex, '') sBarcodex" &
+                       ", IFNULL(e.sBriefDsc, '') sBriefDsc" &
+                       ", IFNULL(e.sDescript, '') sDescript" &
+                       ", IFNULL(d.sCategrCd, '') sCategrCd" &
+                       ", IFNULL(e.cComboMlx, '') cComboMlx" &
+                       ", IFNULL(e.nSelPrice, 0)  nUnitPrce" &
+                       ", 0 nQuantity" &
+                       ", 0 nPromBght" &
+                       ", 0 nWeightxx" &
+               " FROM Promo_Discount a" &
+                    " LEFT JOIN Inventory b ON a.sStockIDx = b.sStockIDx" &
+                    " LEFT JOIN Product_Category c ON a.sCategrCd = c.sCategrCd" &
+                    " LEFT JOIN Promo_Discount_Detail d ON a.sTransNox = d.sTransNox" &
+                    " LEFT JOIN Inventory e ON d.sStockIDx = e.sStockIDx" &
+                    " LEFT JOIN Product_Category f ON d.sCategrCd = f.sCategrCd" &
+               " WHERE " & dateParm(fdTransact) & " BETWEEN IFNULL(a.dPromoFrm, " & dateParm(fdTransact) & ") AND IFNULL(a.dPromoTru, NOW())" &
+                 " AND TIME(" & datetimeParm(fdTransact) & ") BETWEEN TIME(IFNULL(a.dHappyHrF, " & strParm(fdTransact) & ")) AND TIME(IFNULL(a.dHappyHrT, NOW()))" &
                  " AND a.cRecdStat = '1'"
 
         If fsCategrCd <> "" And fsStockIDx <> "" Then
@@ -985,7 +985,7 @@ Public Class clsPromoDiscount
         p_oDTMaster.Columns.Add("sTransNox", System.Type.GetType("System.String")).MaxLength = 12
         p_oDTMaster.Columns.Add("sBranchNm", System.Type.GetType("System.String")).MaxLength = 50
         p_oDTMaster.Columns.Add("sCategrDs", System.Type.GetType("System.String")).MaxLength = 32
-        p_oDTMaster.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 12
+        p_oDTMaster.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 17
         p_oDTMaster.Columns.Add("sBriefDsc", System.Type.GetType("System.String")).MaxLength = 16
         p_oDTMaster.Columns.Add("nDiscRate", System.Type.GetType("System.Decimal"))
         p_oDTMaster.Columns.Add("nDiscAmtx", System.Type.GetType("System.Decimal"))
@@ -1036,7 +1036,7 @@ Public Class clsPromoDiscount
         p_oDTDetail = New DataTable(p_sDetTable)
         p_oDTDetail.Columns.Add("nEntryNox", System.Type.GetType("System.Int16")).AutoIncrement = True
         p_oDTDetail.Columns.Add("sCategrDs", System.Type.GetType("System.String")).MaxLength = 32
-        p_oDTDetail.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 12
+        p_oDTDetail.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 17
         p_oDTDetail.Columns.Add("sBriefDsc", System.Type.GetType("System.String")).MaxLength = 16
         p_oDTDetail.Columns.Add("nDiscRate", System.Type.GetType("System.Decimal"))
         p_oDTDetail.Columns.Add("nDiscAmtx", System.Type.GetType("System.Decimal"))

@@ -420,6 +420,10 @@ Public Class clsInventory
     Public Function NewRecord() As Boolean
         Dim lsSQL As String
 
+        If Not p_oApp.BranchCode = "P001" AndAlso Not p_oApp.BranchCode = "P013" AndAlso Not p_oApp.BranchCode.StartsWith("X") Then
+            Return False
+
+        End If
         lsSQL = AddCondition(getSQ_Master, "0=1")
         p_oDTMstr = p_oApp.ExecuteQuery(lsSQL)
         p_oDTMstr.Rows.Add(p_oDTMstr.NewRow())
@@ -795,7 +799,7 @@ Public Class clsInventory
             If loDT.Rows.Count = 0 Then
                 lsSQL = "INSERT INTO Price_History SET" &
                                 "  sStockIDx = " & strParm(p_oDTMstr(0).Item("sStockIDx")) &
-                                ", dPricexxx = NULL " &
+                                ", dPricexxx = " & dateParm(IFNull(p_oDTMstr(0).Item("dPricexxx"), dateParm(p_oApp.getSysDate))) &
                                 ", nPurPrice = " & CDec(p_oOthersx.nNewUnitP) &
                                 ", nSelPrice = " & CDec(p_oOthersx.nNewSellP) &
                                 ", sCategrID = " & strParm(p_oDTMstr(0).Item("sCategrID")) &
@@ -1540,9 +1544,9 @@ Public Class clsInventory
         For lnCtr = 0 To p_oDTMstr.Columns.Count - 1
             Select Case LCase(p_oDTMstr.Columns(lnCtr).ColumnName)
                 Case "sstockidx"
-                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sStockIDx", True, p_oApp.Connection, True, p_oApp.BranchCode)
+                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sStockIDx", True, p_oApp.Connection, True, "POS")
                 Case "sbarcodex"
-                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sBarcodex", True, p_oApp.Connection)
+                    p_oDTMstr(0).Item(lnCtr) = GetNextCode(p_sMasTable1, "sBarcodex", True, p_oApp.Connection, True, "POS")
                 Case "dmodified", "smodified"
                 Case "sbranchcd"
                     p_oDTMstr(0).Item(lnCtr) = p_oApp.BranchCode
@@ -1642,7 +1646,7 @@ Public Class clsInventory
             .Columns.Add("sStockIDx", GetType(String)).MaxLength = 12
             .Columns.Add("nQuantity", GetType(Integer))
             .Columns.Add("dModified", GetType(Date))
-            .Columns.Add("sBarCodex", GetType(String)).MaxLength = 12
+            .Columns.Add("sBarCodex", GetType(String)).MaxLength = 17
             .Columns.Add("sDescript", GetType(String)).MaxLength = 64
             .Columns.Add("xComboIDx", GetType(String)).MaxLength = 12
             .Columns.Add("xQuantity", GetType(Integer))
@@ -1685,6 +1689,11 @@ Public Class clsInventory
     End Sub
 
     Private Function isEntryOk() As Boolean
+
+        If Trim(p_oDTMstr(0).Item("sStockIDx")) = "" Then
+            MsgBox("StockID No seems to have a problem! Please check your entry....", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, p_sMsgHeadr)
+            Return False
+        End If
         If Trim(p_oDTMstr(0).Item("sBarCodex")) = "" Then
             MsgBox("Barcode No seems to have a problem! Please check your entry....", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, p_sMsgHeadr)
             Return False

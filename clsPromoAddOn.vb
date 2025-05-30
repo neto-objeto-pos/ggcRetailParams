@@ -500,12 +500,12 @@ Public Class clsPromoAddOn
         End If
 
         Dim lsSQL As String
-        lsSQL = "SELECT" & _
-                       "  a.sBarCodex" & _
-                       ", a.sBriefDsc" & _
-                       ", a.sStockIDx" & _
-                       ", a.nUnitPrce" & _
-               " FROM `Inventory` a" & _
+        lsSQL = "SELECT" &
+                       "  a.sBarCodex" &
+                       ", a.sBriefDsc" &
+                       ", a.sStockIDx" &
+                       ", a.nUnitPrce" &
+               " FROM `Inventory` a" &
         IIf(fbSearch, " WHERE a.cRecdStat = '1'", "")
 
         Debug.Print(lsSQL)
@@ -516,7 +516,7 @@ Public Class clsPromoAddOn
                                              , True _
                                              , fsValue _
                                              , "sBarCodex»sBriefDsc»sStockIDx" _
-                                             , "Barcode»Description»Stock ID", _
+                                             , "Barcode»Description»Stock ID",
                                              , "a.sBarCodex»a.sBriefDsc»a.sStockIDx" _
                                              , IIf(fnItemSrc = fnItemCDE, 0, 1))
             If IsNothing(loRow) Then
@@ -642,7 +642,7 @@ Public Class clsPromoAddOn
         p_oDTMaster = Nothing
         p_oDTMaster = New DataTable(p_sMasTable)
         p_oDTMaster.Columns.Add("sTransNox", System.Type.GetType("System.String")).MaxLength = 12
-        p_oDTMaster.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 12
+        p_oDTMaster.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 17
         p_oDTMaster.Columns.Add("sBriefDsc", System.Type.GetType("System.String")).MaxLength = 16
         p_oDTMaster.Columns.Add("dPromoFrm", System.Type.GetType("System.DateTime"))
         p_oDTMaster.Columns.Add("dPromoTru", System.Type.GetType("System.DateTime"))
@@ -674,7 +674,7 @@ Public Class clsPromoAddOn
         p_oDTDetail = Nothing
         p_oDTDetail = New DataTable(p_sDetTable)
         p_oDTDetail.Columns.Add("nEntryNox", System.Type.GetType("System.Int16")).AutoIncrement = True
-        p_oDTDetail.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 12S
+        p_oDTDetail.Columns.Add("sBarcodex", System.Type.GetType("System.String")).MaxLength = 17
         p_oDTDetail.Columns.Add("sBriefDsc", System.Type.GetType("System.String")).MaxLength = 16
         p_oDTDetail.Columns.Add("nQuantity", System.Type.GetType("System.Int32"))
         p_oDTDetail.Columns.Add("nUnitPrce", System.Type.GetType("System.Decimal"))
