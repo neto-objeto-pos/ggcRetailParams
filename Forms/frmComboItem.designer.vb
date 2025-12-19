@@ -65,7 +65,7 @@ Partial Class frmComboItem
         Me.txtField05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtField05.Location = New System.Drawing.Point(80, 7)
         Me.txtField05.Name = "txtField05"
-        Me.txtField05.Size = New System.Drawing.Size(136, 20)
+        Me.txtField05.Size = New System.Drawing.Size(272, 20)
         Me.txtField05.TabIndex = 1
         '
         'Label5
